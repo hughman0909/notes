@@ -1,0 +1,16 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+import { url } from '../lib/posts';
+const { title = 'Exploring what lies beneath.', description = 'Writeups, technical articles, research notes, and experiments in reverse engineering and security research.', article = false } = Astro.props;
+const path = Astro.url.pathname;
+---
+<!doctype html><html lang="ja"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><title>{title} — Field Notes</title><meta name="description" content={description}/><link rel="canonical" href={new URL(path, Astro.site)}/><link rel="icon" type="image/svg+xml" href={url('favicon.svg')}/><meta property="og:title" content={`${title} — Field Notes`}/><meta property="og:description" content={description}/><meta property="og:type" content={article ? 'article' : 'website'}/><meta property="og:url" content={new URL(path, Astro.site)}/><meta property="og:image" content={new URL(url('og.png'), Astro.site)}/><meta name="twitter:card" content="summary_large_image"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet"/></head><body>
+<a class="skip" href="#main">本文へスキップ</a><header class="site-header"><a href={url()} class="brand"><span class="brand-icon">ƒ</span> FIELD NOTES<span class="brand-path"> / ~/research</span></a><nav aria-label="メインナビゲーション">{[['Articles','articles/'],['Writeups','writeups/'],['Tags','tags/']].map(([label,href]) => <a href={url(href)} aria-current={path.startsWith(url(href)) ? 'page' : undefined}>{label}</a>)}<button class="search-trigger" aria-label="記事を検索">⌕ <span>Search</span><kbd>/</kbd></button><a class="portfolio" href="https://hughman0909.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Portfolio ↗</a></nav></header>
+<main id="main"><slot/></main><footer class="site-footer"><a href={url()} class="footer-brand">FIELD NOTES <span>© {new Date().getFullYear()} hughman0909</span></a><span class="footer-note">Always a work in progress<span class="status-dot"></span></span><div><a href="https://github.com/hughman0909" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://hughman0909.github.io/portfolio/" target="_blank" rel="noopener noreferrer">Portfolio ↗</a></div></footer>
+<dialog id="search-dialog"><div class="dialog-heading"><span>SEARCH THE NOTES</span><button id="close-search" aria-label="検索を閉じる">閉じる ×</button></div><div id="search"></div><p id="search-message" hidden>検索はビルド後のプレビューで利用できます。</p></dialog>
+<script>
+import '../scripts/search';
+import '../scripts/motion';
+</script>
+</body></html>

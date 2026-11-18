@@ -1,0 +1,6 @@
+---
+import Base from './Base.astro';
+import PostList from '../components/PostList.astro';
+const { title, description, posts, eyebrow = 'THE RESEARCH LOG' } = Astro.props;
+---
+<Base title={title} description={description}><section class="section-wrap archive"><div class="eyebrow">{eyebrow}</div><h1>{title}<span class="accent">.</span></h1><p class="archive-description">{description}</p><div class="list-toolbar"><span class="mono">{posts.length} ENTRIES</span><span class="sort-label">LATEST FIRST ↓</span></div><PostList posts={posts}/>{posts.length === 0 && <p class="empty-posts">まだ公開記事はありません。次のノートを準備中です。</p>}</section></Base>

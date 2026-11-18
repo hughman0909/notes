@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { posts, postUrl } from '../lib/posts';
+const entries = (await posts()).slice(0, 6);
+const latest = entries[0];
+---
+<Base><section class="hero"><div class="hero-content"><div class="eyebrow"><span class="status-dot"></span> REVERSE ENGINEERING / SECURITY RESEARCH</div><h1><span class="hero-line">Exploring what</span><span class="hero-line hero-line-accent"><em>lies beneath.</em></span></h1><div class="hero-bottom"><p>A collection of writeups, technical articles,<br class="desktop-break"/> research notes, and experiments.</p><a href="#writing" class="hero-link">Explore the notes <span>↓</span></a></div><div class="hero-topics"><span>Reversing</span><span>Malware Analysis</span><span>AI Security</span><span>Obfuscation</span><span>Security Research</span></div>{latest && <a class="latest-note" href={postUrl(latest)} target={latest.data.externalUrl ? '_blank' : undefined} rel={latest.data.externalUrl ? 'noopener noreferrer' : undefined} aria-label={`${latest.data.title}${latest.data.externalUrl ? '（外部サイトを新しいタブで開く）' : ''}`}><div class="latest-note-heading"><span>LATEST NOTE / 001</span><span aria-hidden="true">↗</span></div><h2>{latest.data.title}</h2><p>{latest.data.tags.join(' · ')}{latest.data.externalUrl && <span class="latest-note-source">Zenn ↗</span>}</p></a>}</div></section><section class="writing section-wrap" id="writing"><div class="section-heading"><div><div class="eyebrow">THE RESEARCH LOG</div><h2>Research & Writing<span>.</span></h2><p>Documenting experiments, discoveries, and the process behind them.</p></div></div><div class="list-toolbar"><div class="filter-tabs" role="group" aria-label="記事の種類"><button class="active" data-filter="all" aria-pressed="true">All Posts <span>{entries.length}</span></button><button data-filter="writeup" aria-pressed="false">Writeups</button><button data-filter="article" aria-pressed="false">Articles</button></div><span class="sort-label">LATEST FIRST ↓</span></div><PostList posts={entries}/><p class="list-end"><span></span> END OF LOG · MORE EXPLORATIONS TO COME <span></span></p></section></Base>
+<script>
+document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach(button => button.addEventListener('click', () => {
+ document.querySelectorAll('[data-filter]').forEach(el => { el.classList.toggle('active', el === button); el.setAttribute('aria-pressed', String(el === button)); });
+ document.querySelectorAll<HTMLElement>('.post-row').forEach(row => row.hidden = button.dataset.filter !== 'all' && row.dataset.type !== button.dataset.filter);
+}));
+</script>

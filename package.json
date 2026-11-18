@@ -1,0 +1,39 @@
+{
+  "name": "field-notes",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "check": "astro check",
+    "build": "astro build && pagefind --site dist && node scripts/check-build.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "node scripts/check-build.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.5",
+    "@astrojs/mdx": "^8.1.6",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^7.4.12",
+    "katex": "^0.18.2",
+    "mermaid": "^12.3.0",
+    "pagefind": "^1.4.0",
+    "rehype-katex": "^7.0.0",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "allowScripts": {
+    "esbuild@0.27.7": true,
+    "esbuild@0.25.12": true,
+    "sharp@0.34.5": true
+  },
+  "overrides": {
+    "katex": "$katex"
+  }
+}

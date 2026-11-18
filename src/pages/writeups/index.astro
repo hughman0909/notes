@@ -1,0 +1,6 @@
+---
+import Listing from '../../layouts/Listing.astro';
+import { posts } from '../../lib/posts';
+const entries = (await posts()).filter(p => p.data.type === 'writeup');
+---
+<Listing title="Writeups" description="Following the evidence. A record of the analysis and the discoveries along the way." posts={entries}/>

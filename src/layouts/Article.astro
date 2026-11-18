@@ -1,0 +1,12 @@
+---
+import Base from './Base.astro';
+import { render } from 'astro:content';
+import { url, date, tagUrl, minutes } from '../lib/posts';
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const toc = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+<Base title={post.data.title} description={post.data.description} article><div class="progress" id="reading-progress" aria-hidden="true"></div><header class="article-header"><a href={url(post.data.type === 'article' ? 'articles/' : 'writeups/')} class="back-link">← BACK TO {post.data.type === 'article' ? 'ARTICLES' : 'WRITEUPS'}</a><div class="post-meta"><span class:list={['type-label',post.data.type]}>{post.data.type}</span><time datetime={post.data.date.toISOString()}>{date(post.data.date)}</time><span>{minutes(post.body)} min read</span></div><h1 data-pagefind-meta="title">{post.data.title}</h1><p>{post.data.description}</p><div class="post-tags">{post.data.tags.map((tag: string)=><a href={tagUrl(tag)}>{tag}</a>)}</div><details class="mobile-toc"><summary>この記事の目次</summary><ul>{toc.map(h=><li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul></details></header><div class="article-grid"><article class="prose" data-pagefind-body>{post.data.sample && <aside class="sample-notice" data-pagefind-ignore>サンプル記事 — サイトの表示・投稿形式を確認するためのデモコンテンツです。</aside>}<Content/><div class="article-end" data-pagefind-ignore>End of note. <a href={url()}>← Back to the research log</a></div></article><aside class="toc" aria-label="目次"><span>ON THIS PAGE</span><ul>{toc.map(h=><li class={`depth-${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul></aside></div><dialog class="image-dialog"><button aria-label="拡大画像を閉じる">閉じる ×</button><img alt=""/></dialog></Base>
+<script>
+import '../scripts/article';
+</script>

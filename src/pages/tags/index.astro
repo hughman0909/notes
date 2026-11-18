@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts, tagUrl } from '../../lib/posts';
+const entries = await posts();
+const tags = [...new Set(entries.flatMap(p=>p.data.tags))].sort();
+---
+<Base title="Tags"><section class="section-wrap archive"><div class="eyebrow">FIND A THREAD</div><h1>Areas of exploration<span class="accent">.</span></h1><p class="archive-description">Follow a topic. See where it leads.</p><div class="tag-grid">{tags.map(tag=><a href={tagUrl(tag)}><span class="mono">#</span><h2>{tag}</h2><span>{entries.filter(p=>p.data.tags.includes(tag)).length} notes ↗</span></a>)}</div></section></Base>

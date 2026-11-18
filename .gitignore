@@ -1,0 +1,43 @@
+# Dependencies and generated output
+node_modules/
+dist/
+.astro/
+.cache/
+coverage/
+*.log
+
+# OS and editor-local files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+!.env.template
+.npmrc
+.aws/
+.ssh/
+.codex/
+.agents/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+
+# Private notes live outside the published content and public asset directories
+/private/
+/drafts/
+/scratch/
+
+# Local demo posts, including their images
+/src/content/posts/vm-based-obfuscation/
+/src/content/posts/custom-bytecode-vm/
+/src/content/posts/windows-api-hashing/
+/src/content/posts/sample*/

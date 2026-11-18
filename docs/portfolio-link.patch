@@ -1,0 +1,10 @@
+--- a/index.html
++++ b/index.html
+@@ -34,6 +34,7 @@
+       <a href="#about" data-section="about">about</a>
+       <a href="#projects" data-section="projects">projects</a>
+       <a href="writeups.html">writeups ↗</a>
++      <a href="https://hughman0909.github.io/notes/">field notes ↗</a>
+       <a href="#contact" data-section="contact">contact</a>
+       <span class="nav-caption">PORTFOLIO / FIELD NOTES</span>
+     </nav>

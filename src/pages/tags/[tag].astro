@@ -1,0 +1,10 @@
+---
+import Listing from '../../layouts/Listing.astro';
+import { posts } from '../../lib/posts';
+export async function getStaticPaths() {
+ const entries = await posts();
+ return [...new Set(entries.flatMap(p=>p.data.tags))].map(tag => ({params:{tag:tag.toLowerCase().replace(/\s+/g,'-')},props:{tag,entries:entries.filter(p=>p.data.tags.includes(tag))}}));
+}
+const { tag, entries } = Astro.props;
+---
+<Listing title={tag} description={`Research notes filed under ${tag}.`} eyebrow="TOPIC INDEX" posts={entries}/>

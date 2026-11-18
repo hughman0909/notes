@@ -1,0 +1,6 @@
+---
+import { postUrl, tagUrl, date, minutes } from '../lib/posts';
+import type { CollectionEntry } from 'astro:content';
+const { posts } = Astro.props as { posts: CollectionEntry<'posts'>[] };
+---
+<div class="post-list">{posts.map((post, i) => <article class="post-row" data-type={post.data.type}><div class="post-index">{String(i+1).padStart(2,'0')}</div><div class="post-info"><div class="post-meta"><span class:list={['type-label',post.data.type]}>{post.data.type}</span><time datetime={post.data.date.toISOString()}>{date(post.data.date)}</time>{post.data.externalUrl ? <span class="external-label">{new URL(post.data.externalUrl).hostname === 'zenn.dev' ? 'Zenn' : new URL(post.data.externalUrl).hostname} ↗</span> : <span>{minutes(post.body)} min read</span>}{post.data.sample && <span class="sample-label">SAMPLE</span>}</div><h3><a href={postUrl(post)} target={post.data.externalUrl ? '_blank' : undefined} rel={post.data.externalUrl ? 'noopener noreferrer' : undefined} aria-label={post.data.externalUrl ? `${post.data.title}（外部サイトを新しいタブで開く）` : undefined}>{post.data.title}<span class="row-arrow">↗</span></a></h3><p>{post.data.description}</p><div class="post-tags">{post.data.tags.map(tag => <a href={tagUrl(tag)}>{tag}</a>)}</div></div><span class="row-symbol" aria-hidden="true">{post.data.type === 'writeup' ? '⌘' : '≡'}</span></article>)}</div>
